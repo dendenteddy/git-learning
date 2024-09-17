@@ -32,6 +32,16 @@ class MyAppState extends ChangeNotifier {
    current = WordPair.random();
    notifyListeners();
  }
+ var favorites = <WordPair>[];
+
+  void toggleFavorite() {
+    if (favorites.contains(current)) {
+      favorites.remove(current);
+    } else {
+      favorites.add(current);
+    }
+    notifyListeners();
+  }
 }
 
 class MyHomePage extends StatelessWidget {
@@ -40,18 +50,23 @@ class MyHomePage extends StatelessWidget {
     var appState = context.watch<MyAppState>();
     var pair = appState.current;
 
-    return Scaffold(
-      body: Column(
-        children: [
-          Text('A random idea:'),
-          BigCard(pair: pair),
-             ElevatedButton(
-     onPressed: () {
-       appState.getNext(); 
-     },
-     child: Text('Next'),
-   ),
-        ],
+    return Center(
+      child: Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('A random idea:'),
+              BigCard(pair: pair),
+                 ElevatedButton(
+               onPressed: () {
+           appState.getNext(); 
+               },
+               child: Text('Next'),
+             ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -67,13 +82,16 @@ class BigCard extends StatelessWidget {
 
  @override
  Widget build(BuildContext context) {
-   final theme = Theme.of(context);       // ← Add this.
+   final theme = Theme.of(context);       // ← Added this
+      final style = theme.textTheme.displayMedium!.copyWith(
+     color: theme.colorScheme.onPrimary,
+   );
 
    return Card(
      color: theme.colorScheme.primary,    // ← And also this.
      child: Padding(
-       padding: const EdgeInsets.all(20),
-       child: Text(pair.asLowerCase),
+       padding: const EdgeInsets.all(30),
+       child: Text(pair.asLowerCase, style: style),
      ),
    );
  }
