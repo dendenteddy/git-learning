@@ -12,6 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      title: 'GDSC Summer Hackathon',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'Teddy and her first flutter app'),
+      home: const MyHomePage(title: 'GDSC Summer Hackathon'),
     );
   }
 }
